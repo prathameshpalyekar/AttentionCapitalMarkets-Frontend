@@ -1,12 +1,15 @@
 import React from 'react';
 import { ArrowDownToLine, ArrowUpFromLine, Activity } from 'lucide-react';
+import DepositModal from './DepositModal';
 
 const Portfolio = () => {
   const balance = 49.98;
   const profitLoss = 0.00;
+  const [depositModalOpen, setDepositModalOpen] = React.useState(false);
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white pt-16 pb-20">
+    <>
+      <div className="bg-gray-900 min-h-screen text-white pt-16 pb-20">
       <div className="p-4">
         <div className="bg-gray-800 rounded-lg p-6 mb-6">
           <div className="flex items-center justify-between mb-2">
@@ -23,7 +26,10 @@ const Portfolio = () => {
           <div className="text-gray-400 mb-4">Today</div>
           
           <div className="grid grid-cols-2 gap-4">
-            <button className="bg-blue-500 text-white py-3 rounded-lg flex items-center justify-center">
+            <button
+              onClick={() => setDepositModalOpen(true)}
+              className="bg-blue-500 text-white py-3 rounded-lg flex items-center justify-center hover:bg-blue-600"
+            >
               <ArrowDownToLine className="w-5 h-5 mr-2" />
               Deposit
             </button>
@@ -67,7 +73,13 @@ const Portfolio = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+      <DepositModal
+        isOpen={depositModalOpen}
+        onClose={() => setDepositModalOpen(false)}
+        balance={balance}
+      />
+    </>
   );
 };
 
