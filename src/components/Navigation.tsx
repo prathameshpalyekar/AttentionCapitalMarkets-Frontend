@@ -1,12 +1,10 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Home, BarChart2, ArrowRightLeft, Briefcase } from 'lucide-react';
-import { useAuth, useAuthActions } from '../context/authContext';
-import { useNavigate } from 'react-router-dom';
+import { usePrivy } from '@privy-io/react-auth';
 
 
 const Navigation = () => {
-  const { user } = useAuth();
-  const { onLogout } = useAuthActions();
+  const { authenticated } = usePrivy();
   return (
     <>
       {/* Top Navigation */}
@@ -17,8 +15,8 @@ const Navigation = () => {
               <Link to="/" className="text-2xl font-bold">Attention Market</Link>
             </div>
             <div className="flex items-center space-x-4">
-              {!user?.id && <Link to="/auth" className="bg-blue-500 text-white px-4 py-2 rounded-md">Sign In</Link>}
-              {user?.id && <button onClick={onLogout} className="bg-blue-500 text-white px-4 py-2 rounded-md">Sign Out</button>}
+              {!authenticated && <Link to="/auth" className="bg-blue-500 text-white px-4 py-2 rounded-md">Sign In</Link>}
+              {authenticated && <button className="bg-blue-500 text-white px-4 py-2 rounded-md">Sign Out</button>}
             </div>
           </div>
         </div>
